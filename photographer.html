@@ -2,35 +2,94 @@
 <html>
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <title>Fisheye - photographe</title>
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html" role="banner" title="Fisheye logo">
+        <img
+          src="assets/images/logo.png"
+          class="logo"
+          alt="Fisheye Home page"
+        />
+      </a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <div class="photograph_header">
+        <button
+          class="contact_button"
+          alt="Contact Me"
+          aria-label="open contact form"
+        >
+          Contactez-moi
+        </button>
       </div>
+      <section class="photograph_gallery">
+        <div class="filter">
+          <h1>Trier par</h1>
+          <select id="filter">
+            <option class="date">Date</option>
+            <option class="popularite">Popularité</option>
+            <option class="titre">Titre</option>
+          </select>
+        </div>
+      </section>
+      <div class="gallery_container"></div>
     </main>
+    <header>
+      <section class="photographer_section"></section>
+    </header>
     <div id="contact_modal">
-			<div class="modal">
-				<header>
+      <div class="modal" role="dialog" aria-labelledby="contact_modal">
+        <header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <span
+            class="close_modal"
+            role="button"
+            aria-label="Close Contact form"
+          >
+            <img src="assets/icons/close.svg" />
+          </span>
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
+        <form>
+          <div>
+            <label for="prenom">Prénom</label>
+            <input id="prenom" type="text" />
+            <label>Nom</label>
+            <input />
+            <label>Email</label>
+            <input />
+            <label>Votre message</label>
+            <textarea class="message"></textarea>
+          </div>
+          <button class="send_button" aria-label="send">Envoyer</button>
+        </form>
+      </div>
+    </div>
+    <div class="total_likes"></div>
+    <div class="lightbox_content" role="dialog" aria-label="image closeup view">
+      <!--<div class="lightbox">-->
+      <a class="precedent" href="#" title="previous image"></a>
+      <div class="mediaContainer"></div>
+      <a class="suivant" href="#" title="next image"></a>
+      <span class="close_lightbox" role="button" aria-label="close dialog">
+        <img src="assets/icons/closecolor.svg" />
+      </span>
+      <h4 class="title"></h4>
+      <!-- </div>-->
+    </div>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>

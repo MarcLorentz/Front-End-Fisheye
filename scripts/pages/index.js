@@ -1,46 +1,67 @@
-    async function getPhotographers() {
-        // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
-        // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
-        let photographers = [
-            {
-                "name": "Ma data test",
-                "id": 1,
-                "city": "Paris",
-                "country": "France",
-                "tagline": "Ceci est ma data test",
-                "price": 400,
-                "portrait": "account.png"
-            },
-            {
-                "name": "Autre data test",
-                "id": 2,
-                "city": "Londres",
-                "country": "UK",
-                "tagline": "Ceci est ma data test 2",
-                "price": 500,
-                "portrait": "account.png"
-            },
-        ]
-        // et bien retourner le tableau photographers seulement une fois récupéré
-        return ({
-            photographers: [...photographers, ...photographers, ...photographers]})
-    }
+//import { getUserCardDOM } from "pages/photographer.js";
 
-    async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
+async function getPhotographers() {
+  // Récupération fiches photographe JSON
+  const reponse = await fetch("data/photographers.json");
+  const photographers = await reponse.json();
+  console.log(photographers.photographers);
 
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerTemplate(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-        });
-    }
+  //Récupération de l'élément du DOM qui accueillera les fiches photographes
+  photographers.photographers.forEach((element) => {
+    console.log(element);
+    const fichePortrait = `assets/images/${element.portrait}`;
+    const img = document.createElement("img");
+    img.alt = element.name;
+    const a = document.createElement("a");
+    a.href = "photographer.html?id=" + element.id;
+    img.src = fichePortrait;
+    //fichePortrait.innerHTML = "photographer.html" + window.location.href;
+    const ficheTitle = document.createElement("h2");
+    ficheTitle.innerText = element.name;
+    const ficheCity = document.createElement("p");
+    ficheCity.innerText = `${element.city}, ${element.country}`;
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-    }
-    
-    init();
-    
+    const ficheTagline = document.createElement("em");
+    ficheTagline.innerText = element.tagline;
+    const fichePrice = document.createElement("span");
+    fichePrice.innerText = `${element.price} €/jour`;
+    //console.log(picture);
+    const photographersSection = document.querySelector(
+      ".photographer_section"
+    );
+    // console.log(photographersSection);
+    const photographersLocation = document.querySelector(
+      ".photographer_location"
+    );
+    const article = document.createElement("article");
+    // console.log(article);
+    photographersSection.appendChild(article);
+    article.appendChild(photographersLocation);
+    article.appendChild(a);
+    //article.appendChild(p);
+    a.appendChild(img);
+    a.appendChild(ficheTitle);
+    article.appendChild(ficheCity);
+
+    article.appendChild(ficheTagline);
+    article.appendChild(fichePrice);
+  });
+}
+
+async function displayData(photographers) {
+  const photographersSection = document.querySelector(".photographer_section");
+
+  photographers.forEach((photographer) => {
+    const photographerModel = photographerTemplate(photographer);
+    const userCardDOM = photographerModel.getUserCardDOM();
+    photographersSection.appendChild(userCardDOM);
+  });
+}
+
+async function init() {
+  // Récupère les datas des photographes
+  const { photographers } = await getPhotographers();
+  displayData(photographers);
+}
+
+init();
