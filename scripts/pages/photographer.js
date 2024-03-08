@@ -28,17 +28,34 @@ function createPhotographerHeader(photographerElement) {
 
 function handleModale() {
   //ouverture modale
+
   const contact = document.querySelector(".contact_button");
   const modal = document.getElementById("contact_modal");
   contact.addEventListener("click", (e) => {
     e.preventDefault();
+    modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
   });
   //fermeture modale
   const closeModal = document.querySelector(".close_modal");
   closeModal.addEventListener("click", (e) => {
     e.preventDefault();
+    modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
+  });
+  const firstName = document.getElementById("first_name");
+  const lastName = document.getElementById("last_name");
+  const email = document.getElementById("email");
+  const yourMessage = document.getElementById("your_message");
+  const submit = document.querySelector(".send_button");
+  submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal.setAttribute("aria-hidden", "true");
+    modal.style.display = "none";
+    console.log(firstName.value);
+    console.log(lastName.value);
+    console.log(email.value);
+    console.log(yourMessage.value);
   });
 }
 
@@ -112,9 +129,6 @@ function createMedias(medias, photographerElement) {
 
   //recup suivant
   const suivant = document.querySelector(".suivant");
-  //const i = document.createElement("i");
-  // i.classList.add("fas");
-  // i.classList.add("fa-chevron-right");
   suivant.innerHTML = `<i class="fas fa-chevron-right"></i>`;
   suivant.addEventListener("click", () => {
     currentSelectedMedia++;
@@ -126,9 +140,6 @@ function createMedias(medias, photographerElement) {
   });
   //recup precedent
   const precedent = document.querySelector(".precedent");
-  //const span = document.createElement("i");
-  //i.classList.add("fas");
-  //i.classList.add("fa-chevron-left");
   precedent.innerHTML = `<i class="fas fa-chevron-left"></i>`;
   precedent.addEventListener("click", () => {
     currentSelectedMedia--;
@@ -157,15 +168,20 @@ function createMedias(medias, photographerElement) {
     const heart = document.createElement("span");
     heart.innerText = media.likes;
     const i = document.createElement("i");
+    a.appendChild(i);
+    //mettre balise"a"
+    i.setAttribute("tabindex", "0");
+    i.setAttribute("role", "img");
+    i.setAttribute("aria-label", "likes");
     i.classList.add("fa-heart");
     i.classList.add("fas");
-    i.addEventListener("click", (e) => {
+    a.addEventListener("click", (e) => {
       e.preventDefault();
       media.likes++;
-      heart.innerHTML = `${media.likes}<i class="fa-heart fas" role="img" aria-label="likes"></i> `;
+      heart.innerHTML = `${media.likes}<i class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></i> `;
       nbLikesSum++;
 
-      nbLikesContainer.innerHTML = ` <i class="fa-heart fas"></i>     ${nbLikesSum}   ${photographerElement.price}€ / jour `;
+      nbLikesContainer.innerHTML = `  ${nbLikesSum}   <i class="fa-heart fas"></i>  ${photographerElement.price}€ / jour `;
     });
     heart.appendChild(i);
     // affichage lightbox
@@ -176,11 +192,13 @@ function createMedias(medias, photographerElement) {
     const closeLightbox = document.querySelector(".close_lightbox");
     closeLightbox.addEventListener("click", (e) => {
       e.preventDefault();
+      lightbox.setAttribute("aria-hidden", "true");
       lightbox.style.display = "none";
     });
 
     if (media.video) {
       const video = document.createElement("video");
+      video.setAttribute("tabindex", "0");
       a.appendChild(video);
       const source = document.createElement("source");
       video.src = "assets/images/" + media.video;
@@ -195,6 +213,7 @@ function createMedias(medias, photographerElement) {
     } else {
       const bookImg = media.image;
       const img = document.createElement("img");
+      img.setAttribute("tabindex", "0");
 
       img.src = "assets/images/" + bookImg;
       img.addEventListener("click", () => {
@@ -214,14 +233,8 @@ function createMedias(medias, photographerElement) {
     div.appendChild(mediaTitle);
     div.append(heart);
   });
-  // j'ajoute la somme dans le conteneur
-  // const fichePrice = document.querySelector(".total-likes");
-  // fichePrice.innerText = `${photographerElement.price} €/jour`;
-  //fichePrice.appendChild(nbLikesContainer);
-  //const fichePrice = document.createElement("span");
-  // fichePrice.innerText = `${photographerElement.price} €/jour`;
 
-  nbLikesContainer.innerHTML = `<i class="fa-heart fas"></i> ${nbLikesSum}   ${photographerElement.price}€ / jour`;
+  nbLikesContainer.innerHTML = ` ${nbLikesSum} <i class="fa-heart fas"></i>  ${photographerElement.price}€ / jour`;
 }
 
 getPhotographers();

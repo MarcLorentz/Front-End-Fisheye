@@ -18,7 +18,7 @@
   </head>
   <body>
     <header>
-      <a href="index.html" role="banner" title="Fisheye logo">
+      <a href="index.html">
         <img
           src="assets/images/logo.png"
           class="logo"
@@ -28,21 +28,17 @@
     </header>
     <main id="main">
       <div class="photograph_header">
-        <button
-          class="contact_button"
-          alt="Contact Me"
-          aria-label="open contact form"
-        >
-          Contactez-moi
-        </button>
+        <button class="contact_button">Contactez-moi</button>
       </div>
       <section class="photograph_gallery">
         <div class="filter">
-          <h1>Trier par</h1>
+          <label for="filter">Trier par</label>
           <select id="filter">
-            <option class="date">Date</option>
-            <option class="popularite">Popularité</option>
-            <option class="titre">Titre</option>
+            <option class="date" aria-label="order by date">Date</option>
+            <option class="popularite" aria-label="order by popularity">
+              Popularité
+            </option>
+            <option class="titre" aria-label="order by titre">Titre</option>
           </select>
         </div>
       </section>
@@ -51,10 +47,11 @@
     <header>
       <section class="photographer_section"></section>
     </header>
-    <div id="contact_modal">
+    <div id="contact_modal" aria-hidden="true">
       <div class="modal" role="dialog" aria-labelledby="contact_modal">
         <header>
           <h2>Contactez-moi</h2>
+          <h3 id="photographerName"></h3>
           <span
             class="close_modal"
             role="button"
@@ -64,22 +61,27 @@
           </span>
         </header>
         <form>
-          <div>
-            <label for="prenom">Prénom</label>
-            <input id="prenom" type="text" />
-            <label>Nom</label>
-            <input />
-            <label>Email</label>
-            <input />
-            <label>Votre message</label>
-            <textarea class="message"></textarea>
+          <div aria-labelledby="coordonnées">
+            <label for="first name">Prénom</label>
+            <input id="first_name" name="first_name" type="text" />
+            <label for="last name">Nom</label>
+            <input id="last_name" name="last_name" type="text" />
+            <label for="email">Email</label>
+            <input id="email" name="email" type="text" />
+            <label for="your message">Votre message</label>
+            <textarea class="message" id="your_message"></textarea>
+            <button class="send_button" aria-label="send">Envoyer</button>
           </div>
-          <button class="send_button" aria-label="send">Envoyer</button>
         </form>
       </div>
     </div>
     <div class="total_likes"></div>
-    <div class="lightbox_content" role="dialog" aria-label="image closeup view">
+    <div
+      class="lightbox_content"
+      role="dialog"
+      aria-label="image closeup view"
+      aria-hidden="true"
+    >
       <!--<div class="lightbox">-->
       <a class="precedent" href="#" title="previous image"></a>
       <div class="mediaContainer"></div>

@@ -26,10 +26,17 @@ body {
   border-radius: 100px;
 }
 #contact_modal {
+  z-index: 4;
   display: none;
   position: fixed;
   top: 5%;
-  left: 10%;
+  left: 30%;
+}
+.message {
+  width: 100%;
+  height: 170px;
+  border-radius: 5px;
+  text-decoration: none;
 }
 .contact_button,
 .send_button {
@@ -45,37 +52,30 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+/*-.send_button {
+  margin-top: 30px;
+}*/
 .photograph_gallery {
   margin: 0 100px;
 }
 
 .modal {
+  overflow: auto;
+  height: 50%;
   border-radius: 5px;
   background-color: #db8876;
-  width: 115%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  width: 110%;
   padding: 35px;
-  margin: auto;
 }
-
-.modal header {
-  justify-content: space-between;
-  width: 100%;
-}
-
 .modal header img {
   cursor: pointer;
 }
-
 .modal header h2 {
   font-size: 64px;
   font-weight: normal;
   text-align: center;
 }
-
 form {
   display: flex;
   width: 100%;
@@ -92,8 +92,8 @@ form div {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: self-start;
-  margin-bottom: 26px;
+  /*align-items: self-start;
+  margin-bottom: 26px;*/
 }
 
 form input {
@@ -102,6 +102,7 @@ form input {
   border: none;
   border-radius: 5px;
 }
+
 /*main header*/
 .photograph_header {
   display: flex;
@@ -194,12 +195,13 @@ form input {
   font-size: 24px;
   font-weight: 500;
 }
-.gallery_container span i {
-  font-size: 21px;
-  margin-right: 20px;
-  margin-left: 10px;
+.gallery_container i {
+  padding-left: 5px;
 }
 .total_likes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 376px;
   height: 89px;
   border-top-right-radius: 5px;
@@ -210,8 +212,10 @@ form input {
   background: #db8876;
   padding: 20px;
   font-size: 24px;
-  font-weight: 500;
-  text-align: center;
+  font-weight: 600;
+}
+.total_likes i {
+  margin-left: -120px;
 }
 .lightbox_content {
   position: fixed;
@@ -224,14 +228,7 @@ form input {
   justify-content: center;
   background-color: white;
 }
-/*.lightbox {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: white;
-  width: 100%;
-  height: 100%;
-}*/
+
 .mediaContainer img {
   max-width: 100%;
   max-height: 70%;

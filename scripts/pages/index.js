@@ -14,6 +14,7 @@ async function getPhotographers() {
     img.alt = element.name;
     const a = document.createElement("a");
     a.href = "photographer.html?id=" + element.id;
+    a.setAttribute("tabindex", "0");
     img.src = fichePortrait;
     //fichePortrait.innerHTML = "photographer.html" + window.location.href;
     const ficheTitle = document.createElement("h2");
