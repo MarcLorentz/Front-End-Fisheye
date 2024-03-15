@@ -38,7 +38,7 @@
             <option class="popularite" aria-label="order by popularity">
               Popularité
             </option>
-            <option class="titre" aria-label="order by titre">Titre</option>
+            <option class="titre" aria-label="order by title">Titre</option>
           </select>
         </div>
       </section>
@@ -47,18 +47,21 @@
     <header>
       <section class="photographer_section"></section>
     </header>
+    <div class="overlay" aria-hidden="true" role="dialog"></div>
     <div id="contact_modal" aria-hidden="true">
       <div class="modal" role="dialog" aria-labelledby="contact_modal">
         <header>
           <h2>Contactez-moi</h2>
           <h3 id="photographerName"></h3>
-          <span
+          <a
+            tabindex="0"
             class="close_modal"
+            href="#"
             role="button"
             aria-label="Close Contact form"
           >
             <img src="assets/icons/close.svg" />
-          </span>
+          </a>
         </header>
         <form>
           <div aria-labelledby="coordonnées">
@@ -82,15 +85,22 @@
       aria-label="image closeup view"
       aria-hidden="true"
     >
-      <!--<div class="lightbox">-->
       <a class="precedent" href="#" title="previous image"></a>
-      <div class="mediaContainer"></div>
+      <div>
+        <div class="mediaContainer"></div>
+        <h4 class="title"></h4>
+      </div>
+
       <a class="suivant" href="#" title="next image"></a>
-      <span class="close_lightbox" role="button" aria-label="close dialog">
+
+      <a
+        class="close_lightbox"
+        role="button"
+        aria-label="close dialog"
+        title="close lightbox"
+      >
         <img src="assets/icons/closecolor.svg" />
-      </span>
-      <h4 class="title"></h4>
-      <!-- </div>-->
+      </a>
     </div>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>

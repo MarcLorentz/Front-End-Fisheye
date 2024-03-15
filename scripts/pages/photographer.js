@@ -28,20 +28,28 @@ function createPhotographerHeader(photographerElement) {
 
 function handleModale() {
   //ouverture modale
-
+  const overlay = document.querySelector(".overlay");
   const contact = document.querySelector(".contact_button");
   const modal = document.getElementById("contact_modal");
   contact.addEventListener("click", (e) => {
     e.preventDefault();
     modal.setAttribute("aria-hidden", "false");
     modal.style.display = "block";
+    overlay.style.display = "block";
   });
   //fermeture modale
+  overlay.addEventListener("click", (e) => {
+    e.preventDefault();
+    overlay.setAttribute("aria-hidden", "true");
+    modal.style.display = "none";
+    overlay.style.display = "none";
+  });
   const closeModal = document.querySelector(".close_modal");
   closeModal.addEventListener("click", (e) => {
     e.preventDefault();
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
+    overlay.style.display = "none";
   });
   const firstName = document.getElementById("first_name");
   const lastName = document.getElementById("last_name");
@@ -52,6 +60,7 @@ function handleModale() {
     e.preventDefault();
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
+    overlay.style.display = "none";
     console.log(firstName.value);
     console.log(lastName.value);
     console.log(email.value);
@@ -131,6 +140,7 @@ function createMedias(medias, photographerElement) {
   const suivant = document.querySelector(".suivant");
   suivant.innerHTML = `<i class="fas fa-chevron-right"></i>`;
   suivant.addEventListener("click", () => {
+    suivant.setAttribute("aria-hidden", "true");
     currentSelectedMedia++;
     if (currentSelectedMedia > medias.length - 1) {
       currentSelectedMedia = 0;
@@ -142,6 +152,7 @@ function createMedias(medias, photographerElement) {
   const precedent = document.querySelector(".precedent");
   precedent.innerHTML = `<i class="fas fa-chevron-left"></i>`;
   precedent.addEventListener("click", () => {
+    precedent.setAttribute("aria-hidden", "true");
     currentSelectedMedia--;
     if (currentSelectedMedia < 0) {
       currentSelectedMedia = medias.length - 1;

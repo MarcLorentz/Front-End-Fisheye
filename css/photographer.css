@@ -8,9 +8,7 @@ body {
 }
 
 .photograph_header {
-  /*display: flex;*/
   align-items: center;
-  /*justify-items: center;*/
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
@@ -26,11 +24,15 @@ body {
   border-radius: 100px;
 }
 #contact_modal {
+  overflow: auto;
   z-index: 4;
   display: none;
   position: fixed;
   top: 5%;
   left: 30%;
+  height: 90%;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
 }
 .message {
   width: 100%;
@@ -52,20 +54,27 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-/*-.send_button {
-  margin-top: 30px;
-}*/
+.overlay {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: #c4c4c4;
+  opacity: 40%;
+  cursor: pointer;
+}
 .photograph_gallery {
   margin: 0 100px;
 }
 
 .modal {
-  overflow: auto;
-  height: 50%;
   border-radius: 5px;
   background-color: #db8876;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-  width: 110%;
+
   padding: 35px;
 }
 .modal header img {
@@ -92,8 +101,6 @@ form div {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /*align-items: self-start;
-  margin-bottom: 26px;*/
 }
 
 form input {
@@ -101,6 +108,7 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
+  font-size: 36px;
 }
 
 /*main header*/
@@ -155,7 +163,7 @@ form input {
 .gallery_container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 90px;
+  gap: 70px;
   margin: 0 100px;
   margin-top: 70px;
 }
@@ -164,22 +172,22 @@ form input {
   flex-direction: column;
 }
 .gallery_container div {
-  padding-top: 20px;
+  padding-top: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 .gallery_container img {
-  margin-top: -30px;
+  margin-top: -70px;
   object-fit: cover;
-  width: 350px;
+  width: 100%;
   height: 300px;
   border-radius: 5px;
 }
 .gallery_container video {
-  margin-top: -30px;
+  margin-top: -70px;
   object-fit: cover;
-  width: 350px;
+  width: 100%;
   height: 300px;
   border-radius: 5px;
 }
@@ -203,41 +211,51 @@ form input {
   justify-content: space-between;
   align-items: center;
   width: 376px;
-  height: 89px;
+  height: 70px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   position: fixed;
   bottom: 0px;
   right: 50px;
   background: #db8876;
-  padding: 20px;
+  padding: 40px;
   font-size: 24px;
   font-weight: 600;
 }
 .total_likes i {
-  margin-left: -120px;
+  margin-left: -80px;
 }
 .lightbox_content {
+  gap: 15px;
   position: fixed;
   display: none;
   top: 0%;
   left: 0;
+  padding: 40px;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
   background-color: white;
 }
+.close_lightbox {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
 
+.mediaContainer {
+  text-align: center;
+}
 .mediaContainer img {
-  max-width: 100%;
-  max-height: 70%;
+  width: 80%;
+  height: 600px;
   object-fit: cover;
   border-radius: 5px;
   margin-top: 30px;
 }
 .mediaContainer video {
-  width: 100%;
+  width: 80%;
   height: 80%;
   object-fit: cover;
   border-radius: 5px;
@@ -251,6 +269,7 @@ form input {
   color: #901c1c;
 }
 h4 {
+  margin-left: 50px;
   font-size: 24px;
   color: #901c1c;
   font-weight: 400;
