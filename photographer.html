@@ -51,8 +51,10 @@
     <div id="contact_modal" aria-hidden="true">
       <div class="modal" role="dialog" aria-labelledby="contact_modal">
         <header>
-          <h2>Contactez-moi</h2>
-          <h3 id="photographerName"></h3>
+          <div class="modalTitle">
+            <h2>Contactez-moi</h2>
+            <p id="photographerName"></p>
+          </div>
           <a
             tabindex="0"
             class="close_modal"
@@ -85,19 +87,21 @@
       aria-label="image closeup view"
       aria-hidden="true"
     >
-      <a class="precedent" href="#" title="previous image"></a>
+      <a class="precedent" href="#" title="previous image" tabindex="0"></a>
       <div>
         <div class="mediaContainer"></div>
         <h4 class="title"></h4>
       </div>
 
-      <a class="suivant" href="#" title="next image"></a>
+      <a class="suivant" href="#" title="next image" tabindex="0"></a>
 
       <a
         class="close_lightbox"
         role="button"
         aria-label="close dialog"
         title="close lightbox"
+        tabindex="0"
+        href="#"
       >
         <img src="assets/icons/closecolor.svg" />
       </a>

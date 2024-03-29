@@ -26,11 +26,15 @@ function createPhotographerHeader(photographerElement) {
   photographersSection.appendChild(img);
 }
 
-function handleModale() {
+function handleModale(photographerElement) {
   //ouverture modale
   const overlay = document.querySelector(".overlay");
   const contact = document.querySelector(".contact_button");
   const modal = document.getElementById("contact_modal");
+  const photographerName = document.getElementById("photographerName");
+  photographerName.innerText = photographerElement.name;
+  const div = document.querySelector(".modalTitle");
+  div.appendChild(photographerName);
   contact.addEventListener("click", (e) => {
     e.preventDefault();
     modal.setAttribute("aria-hidden", "false");
@@ -103,7 +107,7 @@ async function getPhotographers() {
   );
 
   createMedias(photographerMedias, photographerElement);
-  handleModale();
+  handleModale(photographerElement);
   createPhotographerHeader(photographerElement);
   handleFilters(photographerMedias);
 }
@@ -119,7 +123,6 @@ function createMedia(media) {
     video.controls = true;
     mediaContainer.innerHTML = "";
     mediaContainer.append(video);
-    //      console.log(video);
   } else {
     const image = document.createElement("img");
     image.src = "assets/images/" + media.image;
@@ -130,35 +133,52 @@ function createMedia(media) {
   lightboxTitle.innerText = media.title;
 }
 //LIGHTBOX
+function displayNextMedia(medias, suivant) {
+  suivant.setAttribute("aria-hidden", "true");
+  currentSelectedMedia++;
+  if (currentSelectedMedia > medias.length - 1) {
+    currentSelectedMedia = 0;
+  }
+  const media = medias[currentSelectedMedia];
+  createMedia(media);
+}
+function displayLastMedia(medias, precedent) {
+  precedent.setAttribute("aria-hidden", "true");
+  currentSelectedMedia--;
+  if (currentSelectedMedia < 0) {
+    currentSelectedMedia = medias.length - 1;
+  }
+  const media = medias[currentSelectedMedia];
+  createMedia(media);
+}
+let currentSelectedMedia;
 function createMedias(medias, photographerElement) {
   //mise en place lightbox
   const lightbox = document.querySelector(".lightbox_content");
-  const lightboxTitle = document.querySelector(".title");
-  let currentSelectedMedia;
 
+  //navigation Lightbox au clavier
+  window.addEventListener("keydown", function (event) {
+    if (event.code === "ArrowRight") {
+      displayNextMedia(medias, suivant);
+    } else if (event.code === "ArrowLeft") {
+      displayLastMedia(medias, precedent);
+    } else if (event.code === "Escape") {
+      lightbox.setAttribute("aria-hidden", "true");
+      lightbox.style.display = "none";
+    }
+  });
   //recup suivant
   const suivant = document.querySelector(".suivant");
   suivant.innerHTML = `<i class="fas fa-chevron-right"></i>`;
   suivant.addEventListener("click", () => {
-    suivant.setAttribute("aria-hidden", "true");
-    currentSelectedMedia++;
-    if (currentSelectedMedia > medias.length - 1) {
-      currentSelectedMedia = 0;
-    }
-    const media = medias[currentSelectedMedia];
-    createMedia(media);
+    displayNextMedia(medias, suivant);
   });
+
   //recup precedent
   const precedent = document.querySelector(".precedent");
   precedent.innerHTML = `<i class="fas fa-chevron-left"></i>`;
   precedent.addEventListener("click", () => {
-    precedent.setAttribute("aria-hidden", "true");
-    currentSelectedMedia--;
-    if (currentSelectedMedia < 0) {
-      currentSelectedMedia = medias.length - 1;
-    }
-    const media = medias[currentSelectedMedia];
-    createMedia(media);
+    displayLastMedia(medias, precedent);
   });
 
   //je récupère l'élément dans lequel dans lequel on veut mettre le nb de likes
@@ -169,33 +189,35 @@ function createMedias(medias, photographerElement) {
   medias.forEach((media, index) => {
     const titleMedia = media.title;
     const mediaTitle = document.createElement("p");
+    const likesMedia = media.likes;
+    const mediaLikes = document.createElement("p");
     mediaTitle.innerText = titleMedia;
+    mediaLikes.innerHTML = likesMedia;
     const a = document.createElement("a");
-    a.innerText = media.title;
-    a.href = "#";
+
     nbLikesSum = media.likes + nbLikesSum;
 
     //nbre de likes et coeur
     const heart = document.createElement("span");
-    heart.innerText = media.likes;
     const i = document.createElement("i");
     a.appendChild(i);
-    //mettre balise"a"
     i.setAttribute("tabindex", "0");
-    i.setAttribute("role", "img");
     i.setAttribute("aria-label", "likes");
     i.classList.add("fa-heart");
     i.classList.add("fas");
-    a.addEventListener("click", (e) => {
+    i.addEventListener("click", (e) => {
       e.preventDefault();
-      media.likes++;
-      heart.innerHTML = `${media.likes}<i class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></i> `;
-      nbLikesSum++;
+      if (!media.clicked) {
+        media.likes++;
+        mediaLikes.innerHTML = media.likes++;
+        heart.innerHTML = `<i class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></i> `;
+        nbLikesSum++;
+        media.clicked = true;
+      }
 
       nbLikesContainer.innerHTML = `  ${nbLikesSum}   <i class="fa-heart fas"></i>  ${photographerElement.price}€ / jour `;
     });
     heart.appendChild(i);
-    // affichage lightbox
 
     photographersBook.appendChild(a);
 
@@ -242,6 +264,7 @@ function createMedias(medias, photographerElement) {
     const div = document.createElement("div");
     a.appendChild(div);
     div.appendChild(mediaTitle);
+    div.appendChild(mediaLikes);
     div.append(heart);
   });
 

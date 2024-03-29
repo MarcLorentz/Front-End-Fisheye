@@ -24,9 +24,10 @@ body {
   border-radius: 100px;
 }
 #contact_modal {
+  display: none;
   overflow: auto;
   z-index: 4;
-  display: none;
+  width: 40%;
   position: fixed;
   top: 5%;
   left: 30%;
@@ -54,6 +55,9 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+.send_button {
+  margin-top: 20px;
+}
 .overlay {
   display: none;
   position: fixed;
@@ -77,13 +81,23 @@ body {
 
   padding: 35px;
 }
+.modal header {
+  align-items: first baseline;
+  height: 170px;
+}
 .modal header img {
   cursor: pointer;
 }
 .modal header h2 {
-  font-size: 64px;
+  font-size: 53px;
   font-weight: normal;
-  text-align: center;
+}
+.modal header p {
+  font-size: 53px;
+  font-weight: normal;
+}
+.message {
+  font-size: 36px;
 }
 form {
   display: flex;
@@ -138,8 +152,9 @@ form input {
   display: flex;
   align-items: center;
   margin-top: 20px;
+  gap: 20px;
 }
-.filter h1 {
+.filter label {
   color: black;
   font-weight: 700;
   font-size: 18px;
@@ -165,7 +180,7 @@ form input {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 70px;
   margin: 0 100px;
-  margin-top: 70px;
+  margin-top: 120px;
 }
 .gallery_container article {
   display: flex;
@@ -173,19 +188,26 @@ form input {
 }
 .gallery_container div {
   padding-top: 5px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 10fr 1fr 1fr;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-left: 0;
+  padding-right: 0;*/
+  /*grid-row: 1 / span 2;*/
 }
 .gallery_container img {
-  margin-top: -70px;
+  cursor: pointer;
+  margin-top: -40px;
   object-fit: cover;
   width: 100%;
   height: 300px;
   border-radius: 5px;
 }
 .gallery_container video {
-  margin-top: -70px;
+  cursor: pointer;
+  margin-top: -40px;
   object-fit: cover;
   width: 100%;
   height: 300px;
@@ -197,14 +219,26 @@ form input {
 .gallery_container p {
   color: #901c1c;
   font-size: 24px;
+  /*width: 200px;*/
 }
-.gallery_container span {
+/*/.gallery_container em {
   color: #901c1c;
   font-size: 24px;
   font-weight: 500;
+  font-style: normal;
+  padding-left: 50px;
+}*/
+.gallery_container span {
+  display: flex;
+  justify-content: end;
+  color: #901c1c;
+  font-size: 20px;
+  margin-top: 5px;
+  padding-left: 0;
+  /*font-weight: 500;*/
 }
 .gallery_container i {
-  padding-left: 5px;
+  cursor: pointer;
 }
 .total_likes {
   display: flex;
