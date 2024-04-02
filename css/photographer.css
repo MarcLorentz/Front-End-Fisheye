@@ -88,7 +88,7 @@ body {
 .modal header img {
   cursor: pointer;
 }
-.modal header h2 {
+.modal header h3 {
   font-size: 53px;
   font-weight: normal;
 }
@@ -115,6 +115,7 @@ form div {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: 50px;
 }
 
 form input {
@@ -190,12 +191,6 @@ form input {
   padding-top: 5px;
   display: grid;
   grid-template-columns: 10fr 1fr 1fr;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-left: 0;
-  padding-right: 0;*/
-  /*grid-row: 1 / span 2;*/
 }
 .gallery_container img {
   cursor: pointer;
@@ -219,25 +214,17 @@ form input {
 .gallery_container p {
   color: #901c1c;
   font-size: 24px;
-  /*width: 200px;*/
 }
-/*/.gallery_container em {
-  color: #901c1c;
-  font-size: 24px;
-  font-weight: 500;
-  font-style: normal;
-  padding-left: 50px;
-}*/
 .gallery_container span {
+  cursor: pointer;
   display: flex;
   justify-content: end;
   color: #901c1c;
   font-size: 20px;
   margin-top: 5px;
   padding-left: 0;
-  /*font-weight: 500;*/
 }
-.gallery_container i {
+.gallery_container em {
   cursor: pointer;
 }
 .total_likes {
@@ -256,7 +243,7 @@ form input {
   font-size: 24px;
   font-weight: 600;
 }
-.total_likes i {
+.total_likes em {
   margin-left: -80px;
 }
 .lightbox_content {
@@ -298,7 +285,7 @@ form input {
 .close_lightbox img {
   cursor: pointer;
 }
-.lightbox_content i {
+.lightbox_content em {
   font-size: 50px;
   color: #901c1c;
 }

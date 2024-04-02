@@ -18,6 +18,7 @@ function createPhotographerHeader(photographerElement) {
   const fichePortrait = `assets/images/${photographerElement.portrait}`;
   const img = document.createElement("img");
   img.src = fichePortrait;
+  img.alt = photographerElement.name;
   const div = document.createElement("div");
   photographersSection.appendChild(div);
   div.appendChild(ficheTitle);
@@ -76,7 +77,7 @@ function handleModale(photographerElement) {
 function handleFilters(photographerMedia) {
   const selectFilter = document.getElementById("filter");
 
-  selectFilter.addEventListener("change", (event) => {
+  selectFilter.addEventListener("change", () => {
     console.log(selectFilter.value);
     if (selectFilter.value === "Popularité") {
       photographerMedia.sort(function (a, b) {
@@ -169,14 +170,14 @@ function createMedias(medias, photographerElement) {
   });
   //recup suivant
   const suivant = document.querySelector(".suivant");
-  suivant.innerHTML = `<i class="fas fa-chevron-right"></i>`;
+  suivant.innerHTML = `<em class="fas fa-chevron-right"></em>`;
   suivant.addEventListener("click", () => {
     displayNextMedia(medias, suivant);
   });
 
   //recup precedent
   const precedent = document.querySelector(".precedent");
-  precedent.innerHTML = `<i class="fas fa-chevron-left"></i>`;
+  precedent.innerHTML = `<em class="fas fa-chevron-left"></em>`;
   precedent.addEventListener("click", () => {
     displayLastMedia(medias, precedent);
   });
@@ -199,25 +200,25 @@ function createMedias(medias, photographerElement) {
 
     //nbre de likes et coeur
     const heart = document.createElement("span");
-    const i = document.createElement("i");
-    a.appendChild(i);
-    i.setAttribute("tabindex", "0");
-    i.setAttribute("aria-label", "likes");
-    i.classList.add("fa-heart");
-    i.classList.add("fas");
-    i.addEventListener("click", (e) => {
+    const em = document.createElement("em");
+    a.appendChild(em);
+    em.setAttribute("tabindex", "0");
+    em.setAttribute("aria-label", "likes");
+    em.classList.add("fa-heart");
+    em.classList.add("fas");
+    em.addEventListener("click", (e) => {
       e.preventDefault();
       if (!media.clicked) {
         media.likes++;
         mediaLikes.innerHTML = media.likes++;
-        heart.innerHTML = `<i class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></i> `;
+        heart.innerHTML = `<em class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></em> `;
         nbLikesSum++;
         media.clicked = true;
       }
 
-      nbLikesContainer.innerHTML = `  ${nbLikesSum}   <i class="fa-heart fas"></i>  ${photographerElement.price}€ / jour `;
+      nbLikesContainer.innerHTML = `  ${nbLikesSum}   <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour `;
     });
-    heart.appendChild(i);
+    heart.appendChild(em);
 
     photographersBook.appendChild(a);
 
@@ -232,6 +233,7 @@ function createMedias(medias, photographerElement) {
     if (media.video) {
       const video = document.createElement("video");
       video.setAttribute("tabindex", "0");
+      video.setAttribute("alt", "");
       a.appendChild(video);
       const source = document.createElement("source");
       video.src = "assets/images/" + media.video;
@@ -247,7 +249,7 @@ function createMedias(medias, photographerElement) {
       const bookImg = media.image;
       const img = document.createElement("img");
       img.setAttribute("tabindex", "0");
-
+      img.setAttribute("alt", "media");
       img.src = "assets/images/" + bookImg;
       img.addEventListener("click", () => {
         currentSelectedMedia = index;
@@ -268,7 +270,7 @@ function createMedias(medias, photographerElement) {
     div.append(heart);
   });
 
-  nbLikesContainer.innerHTML = ` ${nbLikesSum} <i class="fa-heart fas"></i>  ${photographerElement.price}€ / jour`;
+  nbLikesContainer.innerHTML = ` ${nbLikesSum} <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour`;
 }
 
 getPhotographers();
