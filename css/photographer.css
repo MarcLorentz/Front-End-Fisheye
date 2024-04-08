@@ -55,6 +55,20 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+.contact_button,
+.send_button {
+  order: 1;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  padding: 10px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  background-color: #901c1c;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .send_button {
   margin-top: 20px;
 }
@@ -187,10 +201,13 @@ form input {
   display: flex;
   flex-direction: column;
 }
-.gallery_container div {
+.gallery_container .heart-container {
   padding-top: 5px;
   display: grid;
   grid-template-columns: 10fr 1fr 1fr;
+}
+.gallery_container a.fa-heart {
+  color: #901c1c;
 }
 .gallery_container img {
   cursor: pointer;
@@ -224,9 +241,7 @@ form input {
   margin-top: 5px;
   padding-left: 0;
 }
-.gallery_container em {
-  cursor: pointer;
-}
+
 .total_likes {
   display: flex;
   justify-content: space-between;
