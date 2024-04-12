@@ -1,7 +1,7 @@
 async function displayPhotographerList() {
   // Récupération fiches photographe JSON
-  const reponse = await fetch("data/photographers.json");
-  const photographers = await reponse.json();
+  const response = await fetch("data/photographers.json");
+  const photographers = await response.json();
 
   //Récupération de l'élément du DOM qui accueillera les fiches photographes
   photographers.photographers.forEach((photographer) => {

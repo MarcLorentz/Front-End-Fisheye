@@ -280,17 +280,17 @@ form input {
   top: 40px;
 }
 
-.mediaContainer {
+.lightboxContainer {
   text-align: center;
 }
-.mediaContainer img {
+.lightboxContainer img {
   width: 80%;
   height: 600px;
   object-fit: cover;
   border-radius: 5px;
   margin-top: 30px;
 }
-.mediaContainer video {
+.lightboxContainer video {
   width: 80%;
   height: 80%;
   object-fit: cover;

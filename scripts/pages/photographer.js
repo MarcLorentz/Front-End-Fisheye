@@ -34,7 +34,7 @@ function closeModale(e, overlay, modal) {
   overlay.style.display = "none";
 }
 
-function handleModale(photographerElement) {
+function initModalForm(photographerElement) {
   //ouverture modale
   const overlay = document.querySelector(".overlay");
   const contactBtn = document.querySelector(".contact_button");
@@ -52,11 +52,14 @@ function handleModale(photographerElement) {
   //fermeture modale
   overlay.addEventListener("click", (e) => {
     closeModale(e, overlay, modal);
+    modal.setAttribute("aria-hidden", "true");
   });
   const closeModal = document.querySelector(".close_modal");
   closeModal.addEventListener("click", (e) => {
     closeModale(e, overlay, modal);
+    modal.setAttribute("aria-hidden", "true");
   });
+  //elements modale
   const firstName = document.getElementById("first_name");
   const lastName = document.getElementById("last_name");
   const email = document.getElementById("email");
@@ -111,32 +114,36 @@ async function getPhotographers() {
   mediasSorted = photographerMedias;
 
   createMedias(photographerMedias, photographerElement);
-  handleModale(photographerElement);
+  initModalForm(photographerElement);
   createPhotographerHeader(photographerElement);
-  handleFilters(photographerMedias);
+  handleFilters(photographerMedias, photographerElement);
 }
 
-//affichage medias photographe
+//affichage medias photographe Lightbox
 function createMedia(media) {
-  const mediaContainer = document.querySelector(".mediaContainer");
+  const lightboxContainer = document.querySelector(".lightboxContainer");
   if (media.video) {
     const video = document.createElement("video");
     const source = document.createElement("source");
     video.src = "assets/images/" + media.video;
+    video.setAttribute("alt", media.title);
     video.append(source);
     video.controls = true;
-    mediaContainer.innerHTML = "";
-    mediaContainer.append(video);
+    lightboxContainer.innerHTML = "";
+    lightboxContainer.append(video);
+    lightbox.setAttribute("aria-hidden", "false");
   } else {
     const image = document.createElement("img");
     image.src = "assets/images/" + media.image;
-    mediaContainer.innerHTML = "";
-    mediaContainer.append(image);
+    image.alt = media.title;
+    lightboxContainer.innerHTML = "";
+    lightboxContainer.append(image);
+    lightbox.setAttribute("aria-hidden", "false");
   }
   const lightboxTitle = document.querySelector(".title");
   lightboxTitle.innerText = media.title;
 }
-//LIGHTBOX
+//navigation LIGHTBOX
 function displayNextMedia(medias, suivant) {
   suivant.setAttribute("aria-hidden", "true");
   currentSelectedMedia++;
@@ -164,8 +171,10 @@ const lightbox = document.querySelector(".lightbox_content");
 window.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") {
     displayNextMedia(mediasSorted, suivant);
+    lightbox.setAttribute("aria-hidden", "false");
   } else if (event.code === "ArrowLeft") {
     displayLastMedia(mediasSorted, precedent);
+    lightbox.setAttribute("aria-hidden", "false");
   } else if (event.code === "Escape") {
     lightbox.setAttribute("aria-hidden", "true");
     lightbox.style.display = "none";
@@ -242,7 +251,6 @@ function createMedias(medias, photographerElement) {
 
     if (media.video) {
       const video = document.createElement("video");
-      //video.setAttribute("tabindex", "0");
       video.setAttribute("alt", media.title);
       const source = document.createElement("source");
       video.src = "assets/images/" + media.video;
@@ -252,12 +260,12 @@ function createMedias(medias, photographerElement) {
         createMedia(media);
         const lightbox = document.querySelector(".lightbox_content");
         lightbox.style.display = "flex";
+        lightbox.setAttribute("aria-hidden", "false");
       });
       aContainingImgOrVideo.appendChild(video);
     } else {
       const bookImg = media.image;
       const img = document.createElement("img");
-      //img.setAttribute("tabindex", "0");
       img.setAttribute("alt", media.title);
       img.src = "assets/images/" + bookImg;
       aContainingImgOrVideo.addEventListener("click", () => {
@@ -265,6 +273,7 @@ function createMedias(medias, photographerElement) {
         createMedia(media);
         const lightbox = document.querySelector(".lightbox_content");
         lightbox.style.display = "flex";
+        lightbox.setAttribute("aria-hidden", "false");
       });
       nbLikesContainer.innerHTML = ` ${nbLikesSum} <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour`;
       //DOM vignettes media
