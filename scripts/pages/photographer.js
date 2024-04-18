@@ -1,3 +1,4 @@
+//import { mediaFactory } from "/scripts/factories/mediaFactory.js";
 //Récupération de la chaîne de requête dans l'URL
 const photographerUrl = window.location.search;
 
@@ -43,6 +44,7 @@ function initModalForm(photographerElement) {
   photographerName.innerText = photographerElement.name;
   const div = document.querySelector(".modalTitle");
   div.appendChild(photographerName);
+  // ouverture modale
   contactBtn.addEventListener("click", (e) => {
     e.preventDefault();
     modal.setAttribute("aria-hidden", "false");
@@ -119,30 +121,20 @@ async function getPhotographers() {
   handleFilters(photographerMedias, photographerElement);
 }
 
-//affichage medias photographe Lightbox
+//utilisation de la factory mediaFactory pour créer et afficher les médias de la lightbox
+
 function createMedia(media) {
+  // expression conditionnelle
+  const mediaType = media.video ? "video" : "image";
+  const mediaSource = mediaFactory(mediaType, media);
   const lightboxContainer = document.querySelector(".lightboxContainer");
-  if (media.video) {
-    const video = document.createElement("video");
-    const source = document.createElement("source");
-    video.src = "assets/images/" + media.video;
-    video.setAttribute("alt", media.title);
-    video.append(source);
-    video.controls = true;
-    lightboxContainer.innerHTML = "";
-    lightboxContainer.append(video);
-    lightbox.setAttribute("aria-hidden", "false");
-  } else {
-    const image = document.createElement("img");
-    image.src = "assets/images/" + media.image;
-    image.alt = media.title;
-    lightboxContainer.innerHTML = "";
-    lightboxContainer.append(image);
-    lightbox.setAttribute("aria-hidden", "false");
-  }
+  lightboxContainer.innerHTML = "";
+  lightboxContainer.append(mediaSource);
+  lightbox.setAttribute("aria-hidden", "false");
   const lightboxTitle = document.querySelector(".title");
   lightboxTitle.innerText = media.title;
 }
+
 //navigation LIGHTBOX
 function displayNextMedia(medias, suivant) {
   suivant.setAttribute("aria-hidden", "true");
@@ -186,6 +178,7 @@ const suivant = document.querySelector(".suivant");
 suivant.innerHTML = `<em class="fas fa-chevron-right"></em>`;
 suivant.addEventListener("click", () => {
   displayNextMedia(mediasSorted, suivant);
+  precedent.focus();
 });
 
 //recup precedent
@@ -246,6 +239,7 @@ function createMedias(medias, photographerElement) {
       lightbox.style.display = "none";
     });
 
+    // ouverture Lightbox refactorisée
     const aContainingImgOrVideo = document.createElement("a");
     aContainingImgOrVideo.setAttribute("href", "#");
 
@@ -255,30 +249,27 @@ function createMedias(medias, photographerElement) {
       const source = document.createElement("source");
       video.src = "assets/images/" + media.video;
       video.append(source);
-      aContainingImgOrVideo.addEventListener("click", () => {
-        currentSelectedMedia = index;
-        createMedia(media);
-        const lightbox = document.querySelector(".lightbox_content");
-        lightbox.style.display = "flex";
-        lightbox.setAttribute("aria-hidden", "false");
-      });
       aContainingImgOrVideo.appendChild(video);
     } else {
       const bookImg = media.image;
       const img = document.createElement("img");
       img.setAttribute("alt", media.title);
       img.src = "assets/images/" + bookImg;
-      aContainingImgOrVideo.addEventListener("click", () => {
-        currentSelectedMedia = index;
-        createMedia(media);
-        const lightbox = document.querySelector(".lightbox_content");
-        lightbox.style.display = "flex";
-        lightbox.setAttribute("aria-hidden", "false");
-      });
       nbLikesContainer.innerHTML = ` ${nbLikesSum} <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour`;
       //DOM vignettes media
       aContainingImgOrVideo.appendChild(img);
     }
+    // refactoring de l'eventListener sur l'image et la vidéo, cette partie est extraite des if/else pour éviter la duplication
+    aContainingImgOrVideo.addEventListener("click", () => {
+      currentSelectedMedia = index;
+      createMedia(media);
+      const lightbox = document.querySelector(".lightbox_content");
+      lightbox.style.display = "flex";
+      lightbox.setAttribute("aria-hidden", "false");
+      document.querySelector(".precedent").focus();
+    });
+
+    //affichage vignettes photographes
     divElement.appendChild(aContainingImgOrVideo);
     const div = document.createElement("div");
     div.classList.add("heart-container");

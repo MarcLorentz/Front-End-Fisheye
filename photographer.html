@@ -49,7 +49,7 @@
     </header>
     <div class="overlay" aria-hidden="true" role="dialog"></div>
     <div id="contact_modal" aria-hidden="true">
-      <div class="modal" role="dialog" aria-labelledby="contact_modal">
+      <div class="modal" role="dialog" aria-labelledby="contact modal">
         <header>
           <div class="modalTitle">
             <h3>Contactez-moi</h3>
@@ -87,13 +87,25 @@
       aria-label="image closeup view"
       aria-hidden="true"
     >
-      <a class="precedent" href="#" title="previous image" tabindex="0"></a>
+      <a
+        class="precedent"
+        role="button"
+        href="#"
+        title="previous image"
+        tabindex="0"
+      ></a>
       <div>
         <div class="lightboxContainer"></div>
         <h4 class="title"></h4>
       </div>
 
-      <a class="suivant" href="#" title="next image" tabindex="0"></a>
+      <a
+        class="suivant"
+        role="button"
+        href="#"
+        title="next image"
+        tabindex="0"
+      ></a>
 
       <a
         class="close_lightbox"
@@ -108,5 +120,6 @@
     </div>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/factories/mediaFactory.js"></script>
   </body>
 </html>
