@@ -1,11 +1,11 @@
 //import { mediaFactory } from "/scripts/factories/mediaFactory.js";
 //Récupération de la chaîne de requête dans l'URL
-const photographerUrl = window.location.search;
+const photographerUrl = window.location.search; //objet window.location qui rattache URL à la fenêtre actuelle par la propriété .search
 
 //Récuperation id photographe
 const urlSearchParams = new URLSearchParams(photographerUrl);
-const photographerId = urlSearchParams.get("id");
-const photographerIdNumber = parseInt(photographerId);
+const photographerId = urlSearchParams.get("id"); //méthode GET(verbe HTTP comme POST, DELETE...)pour récupérer les données id via le protocole HTTP
+const photographerIdNumber = parseInt(photographerId); //Cette ligne convertit la valeur de l'identifiant du photographe (qui est une chaîne de caractères) en un entier en utilisant la fonction parseInt().
 
 function createPhotographerHeader(photographerElement) {
   //Récupération DOM  des fiches photographes
@@ -17,8 +17,8 @@ function createPhotographerHeader(photographerElement) {
   const ficheTagline = document.createElement("em");
   ficheTagline.innerText = photographerElement.tagline;
   const fichePortrait = `assets/images/${photographerElement.portrait}`;
-  const img = document.createElement("img");
-  img.src = fichePortrait;
+  const img = document.createElement("img"); //on crée l'objet img dont la méthode est l'objet document qui se definit par la méthode .createElement("img")
+  img.src = fichePortrait; //cet objet img a pour propriété .src(source) qui correspond à l'objet fichePortrait
   img.alt = photographerElement.name;
   const div = document.createElement("div");
   photographersSection.appendChild(div);
@@ -35,8 +35,8 @@ function closeModale(e, overlay, modal) {
   overlay.style.display = "none";
 }
 
+//initialisation modale(formulaire)
 function initModalForm(photographerElement) {
-  //ouverture modale
   const overlay = document.querySelector(".overlay");
   const contactBtn = document.querySelector(".contact_button");
   const modal = document.getElementById("contact_modal");
@@ -78,7 +78,7 @@ function initModalForm(photographerElement) {
     console.log(yourMessage.value);
   });
 }
-let mediasSorted = [];
+let mediasSorted = []; //on déclare une nouvelle variable mediasSorted et on lui attribue une valeur initiale vide, qui est un tableau ([])
 
 //dropdown menu medias photographe
 function handleFilters(photographerMedias, photographerElement) {
@@ -108,13 +108,13 @@ async function getPhotographers() {
   const photographers = await reponse.json();
   //Récupération media photographe
   const photographerMedias = photographers.media.filter((media) => {
-    return media.photographerId == photographerId;
+    return media.photographerId == photographerId; //comparateur d'égalité avec conversion
   });
   const photographerElement = photographers.photographers.find(
-    (element) => element.id === photographerIdNumber
+    (element) => element.id === photographerIdNumber //comparateur d'égalité stricte , valeurs et types identiques
   );
   mediasSorted = photographerMedias;
-
+  // on appelle les fonctions suivante pour effectuer des opérations sur les données récupérées concernant le ou la photographe
   createMedias(photographerMedias, photographerElement);
   initModalForm(photographerElement);
   createPhotographerHeader(photographerElement);
@@ -124,8 +124,25 @@ async function getPhotographers() {
 //utilisation de la factory mediaFactory pour créer et afficher les médias de la lightbox
 
 function createMedia(media) {
-  // expression conditionnelle
-  const mediaType = media.video ? "video" : "image";
+  // expression conditionnelle equivalente à
+  /*
+    let mediaType
+    if (media.video) {
+        mediaType = 'video'
+    } else {
+        mediaType = 'image'
+    }
+  */
+  const mediaType = media.video ? "video" : "image"; // expression conditionnelle , avec "?"opérateur ternaire de condition , equivalente à
+  /*
+    let mediaType
+    if (media.video) {
+        mediaType = 'video'
+    } else {
+        mediaType = 'image'
+    }
+  */
+  //eslint-disable-next-line no-undef
   const mediaSource = mediaFactory(mediaType, media);
   const lightboxContainer = document.querySelector(".lightboxContainer");
   lightboxContainer.innerHTML = "";
@@ -159,7 +176,7 @@ let currentSelectedMedia;
 //mise en place lightbox
 const lightbox = document.querySelector(".lightbox_content");
 
-//navigation Lightbox au clavier
+//navigation Lightbox au clavier , appel au gestionnaire d'événements de touche "keydown"
 window.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") {
     displayNextMedia(mediasSorted, suivant);
@@ -192,8 +209,8 @@ function createMedias(medias, photographerElement) {
   //je récupère l'élément dans lequel dans lequel on veut mettre le nb de likes
   const nbLikesContainer = document.querySelector(".total_likes");
   const photographersBook = document.querySelector(".gallery_container");
-  photographersBook.innerHTML = "";
-  let nbLikesSum = 0;
+  photographersBook.innerHTML = ""; //innerHTML est la propriété de l'élément photographersBook dont on vide le contenu HTML avec la chaine vide("")
+  let nbLikesSum = 0; //initialisation de la nbLikesSum à 0
 
   medias.forEach((media, index) => {
     const titleMedia = media.title;
@@ -218,6 +235,7 @@ function createMedias(medias, photographerElement) {
     a.addEventListener("click", (e) => {
       e.preventDefault();
       if (!media.clicked) {
+        //! est un opérateur de négation logique(not):Si media.clicked est évalué à false ou undefined, alors !media.clicked sera évalué à true, et le bloc de code à l'intérieur du if sera exécuté.
         media.likes++;
         mediaLikes.innerHTML = media.likes++;
         heart.innerHTML = `<em class="fa-heart fas" role="img" aria-label="likes" tabindex="0"></em> `;
@@ -266,7 +284,7 @@ function createMedias(medias, photographerElement) {
       const lightbox = document.querySelector(".lightbox_content");
       lightbox.style.display = "flex";
       lightbox.setAttribute("aria-hidden", "false");
-      document.querySelector(".precedent").focus();
+      document.querySelector(".precedent").focus(); //mise en place d'un focus(solution"quick and dirty")à la place d'un focus-trap pour la tabulation
     });
 
     //affichage vignettes photographes

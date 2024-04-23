@@ -9,6 +9,8 @@ async function displayPhotographerList() {
     const img = document.createElement("img");
     img.alt = photographer.name;
     const a = document.createElement("a");
+    //lien hypertexte vers la page photographer.html avec l'identifiant du photographe inclus dans l'URL.
+    // "photographer.html?id=" + photographer.id : valeur assignée à la propriété href. Cette partie de la ligne de code crée l'URL du lien. Elle concatène la chaîne "photographer.html?id=" avec la valeur de l'identifiant du photographe (photographer.id)
     a.href = "photographer.html?id=" + photographer.id;
     a.setAttribute("tabindex", "0");
     img.src = fichePortrait;

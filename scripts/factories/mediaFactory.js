@@ -1,3 +1,5 @@
+//js pas en mode module : erreur=faux positifs
+//eslint-disable-next-line no-unused-vars
 function mediaFactory(type, media) {
   let mediaSource;
 
