@@ -124,15 +124,6 @@ async function getPhotographers() {
 //utilisation de la factory mediaFactory pour créer et afficher les médias de la lightbox
 
 function createMedia(media) {
-  // expression conditionnelle equivalente à
-  /*
-    let mediaType
-    if (media.video) {
-        mediaType = 'video'
-    } else {
-        mediaType = 'image'
-    }
-  */
   const mediaType = media.video ? "video" : "image"; // expression conditionnelle , avec "?"opérateur ternaire de condition , equivalente à
   /*
     let mediaType
