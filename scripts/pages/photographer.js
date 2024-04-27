@@ -69,15 +69,44 @@ function initModalForm(photographerElement) {
   const submit = document.querySelector(".send_button");
   submit.addEventListener("click", (e) => {
     e.preventDefault();
+    let isValid = true;
     modal.setAttribute("aria-hidden", "true");
     modal.style.display = "none";
     overlay.style.display = "none";
     console.log(firstName.value);
+    if (firstName.value.length == 0) {
+      modal.style.display = "block";
+      isValid = false;
+    }
     console.log(lastName.value);
+    if (lastName.value.lenght == 0) {
+      modal.style.display = "block";
+      isValid = false;
+    }
     console.log(email.value);
+    var validRegex = "[a-z._-]+@[a-z._-]+\\.[a-z._-]+";
+    if (email.value.match(validRegex)) {
+    } else {
+      alert("invalid email!");
+      modal.style.display = "block";
+      isValid = false;
+      //return false;
+    }
     console.log(yourMessage.value);
+    if (yourMessage.value.lenght == 0) {
+      modal.style.display = "block";
+      isValid = false;
+    }
+    if (isValid === true) {
+      closeModale(e, overlay, modal);
+      modal.setAttribute("aria-hidden", "true");
+    } else {
+      modal.style.display = "block";
+      alert("Vous devez remplir tous les champs.");
+    }
   });
 }
+
 let mediasSorted = []; //on déclare une nouvelle variable mediasSorted et on lui attribue une valeur initiale vide, qui est un tableau ([])
 
 //dropdown menu medias photographe
@@ -186,7 +215,6 @@ const suivant = document.querySelector(".suivant");
 suivant.innerHTML = `<em class="fas fa-chevron-right"></em>`;
 suivant.addEventListener("click", () => {
   displayNextMedia(mediasSorted, suivant);
-  precedent.focus();
 });
 
 //recup precedent
@@ -237,7 +265,6 @@ function createMedias(medias, photographerElement) {
       nbLikesContainer.innerHTML = `  ${nbLikesSum}   <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour `;
     });
     heart.appendChild(a);
-
     photographersBook.appendChild(divElement);
 
     //fermeture lightbox
@@ -265,7 +292,6 @@ function createMedias(medias, photographerElement) {
       img.setAttribute("alt", media.title);
       img.src = "assets/images/" + bookImg;
       nbLikesContainer.innerHTML = ` ${nbLikesSum} <em class="fa-heart fas"></em>  ${photographerElement.price}€ / jour`;
-      //DOM vignettes media
       aContainingImgOrVideo.appendChild(img);
     }
     // refactoring de l'eventListener sur l'image et la vidéo, cette partie est extraite des if/else pour éviter la duplication
@@ -275,7 +301,9 @@ function createMedias(medias, photographerElement) {
       const lightbox = document.querySelector(".lightbox_content");
       lightbox.style.display = "flex";
       lightbox.setAttribute("aria-hidden", "false");
-      document.querySelector(".precedent").focus(); //mise en place d'un focus(solution"quick and dirty")à la place d'un focus-trap pour la tabulation
+      document.querySelector(".precedent").focus();
+      //precedent.focus();
+      //mise en place d'un focus(solution"quick and dirty")à la place d'un focus-trap pour la tabulation
     });
 
     //affichage vignettes photographes
